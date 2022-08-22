@@ -1,16 +1,16 @@
 DApp = {
 	factoryContract: null,
-	factoryAbi: [{"constant":false,"inputs":[{"name":"_topLevelDomain","type":"string"},{"name":"_subDomain","type":"string"},{"name":"_owner","type":"address"},{"name":"_target","type":"address"}],"name":"newSubdomain","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"creator","type":"address"},{"indexed":true,"name":"owner","type":"address"},{"indexed":false,"name":"domain","type":"string"},{"indexed":false,"name":"subdomain","type":"string"}],"name":"SubdomainCreated","type":"event"},{"constant":true,"inputs":[{"name":"_subDomain","type":"string"},{"name":"_topLevelDomain","type":"string"}],"name":"subDomainOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"}],
+	factoryAbi: [{"constant":false,"inputs":[{"name":"_domain","type":"string"},{"name":"_subdomain","type":"string"},{"name":"_owner","type":"address"},{"name":"_target","type":"address"}],"name":"newSubdomain","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"creator","type":"address"},{"indexed":true,"name":"owner","type":"address"},{"indexed":false,"name":"domain","type":"string"},{"indexed":false,"name":"subdomain","type":"string"}],"name":"SubdomainCreated","type":"event"},{"constant":true,"inputs":[{"name":"_subdomain","type":"string"},{"name":"_domain","type":"string"}],"name":"subdomainOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"}],
 	emptyAddress: '0x0000000000000000000000000000000000000000',
 	
 	// Local
-	factoryAddress: "0x9fbda871d559710256a2502a2517b794b482db40",
+	//factoryAddress: "0x9fbda871d559710256a2502a2517b794b482db40",
 
 	// Ropsten
 	//factoryAddress: "0xf9fa2ff44a474b6d20500969bda61c2827fbc6b6",
 	
 	// Mainnet
-	//factoryAddress: "0x21aa8d3eee8be2333ed180e9a5a8c0729c9b652c",
+	factoryAddress: "0x21aa8d3eee8be2333ed180e9a5a8c0729c9b652c",
 
 	init: function() {
 		console.log('[x] Initializing DApp.');
@@ -67,7 +67,7 @@ DApp = {
 	},
 
 	checkSubdomainOwner: function(subdomain, domain){
-		DApp.factoryContract.methods.subDomainOwner(subdomain, domain).call(
+		DApp.factoryContract.methods.subdomainOwner(subdomain, domain).call(
 				function(error, addr){
 				if(error){
 					console.log('[x] Error during execution', error);
@@ -77,7 +77,7 @@ DApp = {
 						$('#valid').text("It's available! Go for it tiger!");
 						$('#subdomain').addClass('is-valid');
 					} else if(addr === DApp.currentAccount) {
-						$('#valid').text("It's your domain! Edit away!");
+						$('#valid').text("It's your subdomain! Edit away!");
 						$('#subdomain').addClass('is-valid');
 					} else {
 						$('#invalid').text("Oops! It's already taken by: " + addr);
